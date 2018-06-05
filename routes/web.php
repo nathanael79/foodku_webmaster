@@ -46,3 +46,18 @@ Route::post('/logout',[
     "uses"=>'Auth\LoginController@logout',
     "as"=>"logout",
 ]);
+
+Route::get('/database/makanan',[
+    "uses" => 'MakananController@index',
+    "as"=>"database.makanan",
+]);
+
+Route::get('/database/minuman',[
+    "uses" => 'MinumanController@index',
+    "as"=>"database.minuman",
+]);
+
+Route::get('/database/user',[
+    "uses" => 'UserController@index',
+    "as"=>"database.user",
+]);
