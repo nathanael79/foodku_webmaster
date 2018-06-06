@@ -34,7 +34,7 @@ class ApiLoginController extends Controller
             ]);
 
             return response()->json([
-                "status"=>"berhasil",
+                "status"=>true,
                 "code"=>200,
             ]);
         } else {
@@ -66,6 +66,30 @@ class ApiLoginController extends Controller
             "status"=>"berhasil",
             "code"=>"200",
         ]);
+    }
+
+    public function login(Request $request)
+    {
+        $email = $request->email;
+        $password = sha1($request->password);
+
+        $activeUser = User::where('email',$email)->first();
+        if(is_null($activeUser)){
+            return response()->json('email not found');
+        }
+        
+        if($activeUser->password != $password)
+        {
+            return response()->json('password salah');
+        }
+        return response()->json([
+            'status'=>true,
+            'code'=>"200",
+            'description'=>'success',
+            'message'=>'login berhasil',
+            'data'=>$activeUser,
+        ]);
+
     }
 
 }

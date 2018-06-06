@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('database.user');
+        return view('database.user.user');
     }
 
     /**

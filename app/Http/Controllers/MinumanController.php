@@ -13,7 +13,7 @@ class MinumanController extends Controller
      */
     public function index()
     {
-        return view("database.minuman");
+        return view("database.minuman.minuman");
     }
 
     /**

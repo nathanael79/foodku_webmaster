@@ -13,7 +13,7 @@ class MakananController extends Controller
      */
     public function index()
     {
-        return view('database.makanan');
+        return view('database.makanan.makanan');
     }
 
     /**
