@@ -141,12 +141,8 @@ return [
                     'url' => '/database/user',
                 ],
                 [
-                    'text' => 'Makanan',
+                    'text' => 'Menu',
                     'url'  => '/database/makanan',
-                ],
-                [
-                    'text' => 'Minuman',
-                    'url'  => '/database/minuman',
                 ],
             ],
         ],

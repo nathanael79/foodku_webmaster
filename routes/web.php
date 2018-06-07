@@ -47,17 +47,46 @@ Route::post('/logout',[
     "as"=>"logout",
 ]);
 
-Route::get('/database/makanan',[
-    "uses" => 'MakananController@index',
-    "as"=>"database.makanan",
+Route::get('/database/menu',[
+    "uses" => 'MenuController@index',
+    "as"=>"database.menu",
 ]);
 
-Route::get('/database/minuman',[
-    "uses" => 'MinumanController@index',
-    "as"=>"database.minuman",
-]);
+Route::group(['prefix' => '/database/user'], function(){
+    
+    Route::get('/',[
+        "uses" => 'UserController@index',
+        "as"=>"database.user",
+    ]);
 
-Route::get('/database/user',[
-    "uses" => 'UserController@index',
-    "as"=>"database.user",
-]);
+    Route::get('/add',[
+        "uses" => 'UserController@create',
+        "as"=>"database.add",
+    ]);
+
+    Route::get('/edit/{id}',[
+        "uses" => 'UserController@edit',
+        "as"=>"database.edit",
+    ]);
+
+    Route::post('/update/{id}',[
+        "uses" => 'UserController@update',
+        "as"=>"database.update",
+    ]);
+
+    Route::post('/store',[
+        "uses" => 'UserController@store',
+        "as"=>"database.store",
+    ]);
+
+    Route::get('/get_datatable',[
+        "uses" => 'UserController@get_datatable',
+        "as"=>"database.user.dt",
+    ]);
+
+    Route::get('/delete/{id}',[
+        "uses" => 'UserController@destroy',
+        "as"=>"database.delete",
+    ]);
+
+});

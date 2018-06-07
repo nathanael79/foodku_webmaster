@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use DataTables;
+use Validator;
 
 class UserController extends Controller
 {
@@ -16,6 +19,18 @@ class UserController extends Controller
         return view('database.user.user');
     }
 
+    public function get_datatable()
+    {
+        $model = User::select([
+            'id',
+            'name',
+            'email',            
+        ]);
+
+        $dt = DataTables::of($model);
+        return $dt->make(true);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -23,7 +38,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('database.user.insert');
     }
 
     /**
@@ -34,7 +49,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $object = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => sha1($request->password)
+        ];
+
+        Validator::make($object, [
+            'name' => 'required',
+            'email' => 'required|unique[users.email]',
+            'password' => 'required',
+        ]);
+
+        if (User::create($object)){
+            return redirect('database/user');
+        };
     }
 
     /**
@@ -56,7 +85,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'user' => User::find($id)
+        ];
+
+        return view('database.user.edit', $data);
     }
 
     /**
@@ -68,7 +101,27 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->password){
+            $object = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => sha1($request->password)
+            ];
+        } else {
+            $object = [
+                'name' => $request->name,
+                'email' => $request->email,                
+            ];
+        }   
+
+        Validator::make($object, [
+            'name' => 'required',
+            'email' => 'required',            
+        ]);
+
+        if (User::find($id)->update($object)){
+            return redirect('database/user');
+        };
     }
 
     /**
@@ -79,6 +132,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (User::destroy($id)){
+            return redirect('database/user');
+        }
     }
 }

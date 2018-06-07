@@ -30,7 +30,7 @@ class ApiLoginController extends Controller
             User::create([
                 "name"=>$request->name,
                 "email"=>$request->email,
-                "password"=>md5($request->password)
+                "password"=>sha1($request->password)
             ]);
 
             return response()->json([
@@ -47,14 +47,22 @@ class ApiLoginController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $user->update($request->all());
+        //$user = User::findOrFail($id);
+        $user = User::where('id',$id);
+        if($user!=null)
+        {
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => sha1($request->input('password')),
+            ]);
 
-        return response()->json([
-            "status"=>"berhasil",
-            "code"=>"200",
-            "data"=>$user,
-        ]);
+            return response()->json([
+                "status"=>"berhasil",
+                "code"=>"200",
+                "data"=>$user,
+            ]);
+        }
     }
 
     public function delete($id)
