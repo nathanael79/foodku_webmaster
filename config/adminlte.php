@@ -144,6 +144,10 @@ return [
                     'text' => 'Menu',
                     'url'  => '/database/menu',
                 ],
+                [
+                    'text' => 'Order',
+                    'url'  => '/database/order',
+                ],
             ],
         ],
     ],

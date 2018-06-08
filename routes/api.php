@@ -22,3 +22,8 @@ Route::post("/create","API\ApiLoginController@create");
 Route::put("/update/{id}","API\ApiLoginController@update");
 Route::delete("/delete/{id}","API\ApiLoginController@delete");
 Route::post('/login','API\ApiLoginController@login');
+
+Route::post('/get_menu_all', 'API\ApiController@get_menu_all');
+Route::post('/get_menu_where', 'API\ApiController@get_menu_where');
+Route::post('/create_order', 'API\ApiController@create_order');
+Route::post('/add_menu_to_order', 'API\ApiController@add_menu_to_order');

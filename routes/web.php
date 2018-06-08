@@ -131,4 +131,24 @@ Route::group(['prefix' => '/database/menu'], function(){
 });
 
 
+Route::group(['prefix' => '/database/order'], function(){
+    
+    Route::get('/',[
+        "uses" => 'OrderController@index',
+        "as"=>"database.order.index",
+    ]);
+
+    Route::get('/fetch_data',[
+        "uses" => 'OrderController@fetch_data',
+        "as"=>"database.order.fetch_data",
+    ]);
+
+    Route::post('/delete',[
+        "uses" => 'OrderController@destroy',
+        "as"=>"database.order.delete",
+    ]);
+
+});
+
+
 
