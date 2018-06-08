@@ -6,7 +6,7 @@
     <div class="content">
         <section class="content-header">
             <h1>
-                User<br>
+                Menu<br>
                 <small style="padding-left: 0">Daftar semua menu yang ada</small>
             </h1>
             <ol class="breadcrumb">
@@ -49,11 +49,9 @@
                                             <td>Gambar</td>
                                             <td>Deskripsi</td>
                                             <td>Kategori</td>
+                                            <td>Aksi</td>
                                         </tr>
                                         </thead>
-                                        <tbody>
-
-                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -105,39 +103,36 @@
                         width: 90,
                         "orderable": true,
                     },
-                    {
-                        width: 120,
+                    {                        
                         class: "text-center",
                         "orderable": false,
                         "targets": [2],
                         "data": "harga"
                     },
-                    {
-                        width: 120,
+                    {                        
                         class: "text-center",
                         "orderable": false,
                         "targets": [3],
-                        "data": "gambar"
+                        render: function (data, type, row, meta){
+                            return "<img style='width:100%' src='{{ asset('images/barang') }}/"+row['gambar']+"'>"
+                        }
                     },
-                    {
-                        width: 120,
+                    {                        
                         class: "text-center",
                         "orderable": false,
                         "targets": [4],
                         "data": "deskripsi"
                     },
-                    {
-                        width: 120,
+                    {                        
                         class: "text-center",
                         "orderable": false,
                         "targets": [5],
-                        "data": "kategori"
+                        "data": "category"
                     },
                     {
                         targets: [6],
-                        data: [0],
-                        sortable: false,
-                        searchable: false,
+                        "sortable": false,
+                        "searchable": false,
                         render: function(data, type, row, meta){
                             return "<div class='btn-group'>"+
                                 "<a href='/database/menu/edit/"+row['id']+"' class='btn btn-primary'>Edit</a>"+

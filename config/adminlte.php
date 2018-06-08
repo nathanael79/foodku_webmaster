@@ -142,7 +142,7 @@ return [
                 ],
                 [
                     'text' => 'Menu',
-                    'url'  => '/database/makanan',
+                    'url'  => '/database/menu',
                 ],
             ],
         ],

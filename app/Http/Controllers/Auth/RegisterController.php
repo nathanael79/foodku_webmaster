@@ -32,7 +32,7 @@ class RegisterController extends Controller
         $user->password = sha1($request->password);
         //$user->password = Hash::make($request->password);
         $user->save();
-        return redirect('auth/login')->with('alert-success','Kamu berhasil Register');
+        return redirect('/login')->with('alert-success','Kamu berhasil Register');
     }
 
 }

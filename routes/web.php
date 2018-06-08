@@ -90,3 +90,45 @@ Route::group(['prefix' => '/database/user'], function(){
     ]);
 
 });
+
+Route::group(['prefix' => '/database/menu'], function(){
+    
+    Route::get('/',[
+        "uses" => 'MenuController@index',
+        "as"=>"database.menu",
+    ]);
+
+    Route::get('/add',[
+        "uses" => 'MenuController@create',
+        "as"=>"menu.add",
+    ]);
+
+    Route::get('/edit/{id}',[
+        "uses" => 'MenuController@edit',
+        "as"=>"menu.edit",
+    ]);
+
+    Route::post('/update/{id}',[
+        "uses" => 'MenuController@update',
+        "as"=>"menu.update",
+    ]);
+
+    Route::post('/store',[
+        "uses" => 'MenuController@store',
+        "as"=>"menu.store",
+    ]);
+
+    Route::get('/get_datatable',[
+        "uses" => 'MenuController@get_datatable',
+        "as"=>"menu.user.dt",
+    ]);
+
+    Route::get('/delete/{id}',[
+        "uses" => 'MenuController@destroy',
+        "as"=>"menu.delete",
+    ]);
+
+});
+
+
+

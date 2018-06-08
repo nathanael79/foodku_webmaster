@@ -10,6 +10,10 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
+    <link href="{{ asset('css/dropify.css') }}" rel="stylesheet"/>
+    <script src="{{ asset('js/dropify.js') }}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {
@@ -68,6 +72,13 @@
     <!-- ChartJS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 @endif
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.select2').select2();
+            $('.dropify').dropify();
+        });
+    </script>
 
 @yield('adminlte_js')
 

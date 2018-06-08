@@ -2,21 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Carbon;
+use DB;
+use Validator;
+use DataTables;
+use Carbon\Carbon;
 use App\Models\ViewMenu;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-       public function index()
-    {
-        return view('database.menu');
+   	public function index()
+    {    	
+        return view('database.menu.menu');
     }
 
     public function get_datatable()
     {
         $model = ViewMenu::select([
+        	'id',
             'nama_menu',
             'harga',
             'gambar',   
@@ -35,7 +39,11 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('database.menu.insert');
+    	$data = [
+    		'kategori' => DB::table('category')->get()
+    	];
+
+        return view('database.menu.insert', $data);
     }
 
     /**
@@ -45,35 +53,33 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-    	
-
+    {    	
     	if ( $request->file("gambar") ){
             $time = Carbon::now();
             $extension = $request->file("gambar")->getClientOriginalExtension();
-            $directory = 'images/barang/';
-            $filename = str_slug($request->input('menu')).'-'.date_format($time,'d').rand(1,999).date_format($time,'h').".".$extension;
+            $directory = 'barang/';
+            $filename = str_slug($request->input('nama_menu')).'-'.date_format($time,'d').rand(1,999).date_format($time,'h').".".$extension;
             $upload_success = $request->file("gambar")->storeAs($directory, $filename, 'public');
         } else {
             $filename = '';
         }
 
-        $object = [
-            'nama_menu' => $request->nama_menu,
-            'harga' => $request->harga,
-            'id_category' => $request->id_category,
-            'gambar' => $filename,
-            'deskripsi' => $request->deskripsi,
-        ];
-
-        Validator::make($object, [
+        Validator::make($request->only(['nama_menu', 'harga', 'kategori', 'gambar', 'deskripsi']), [
             'nama_menu' => 'required',
             'harga' => 'required',
-            'id_category' => 'required',
+            'kategori' => 'required',
             'gambar' => 'required',
             'deskripsi' => 'deskripsi'
         ]);
 
+        $object = [
+            'nama_menu' => $request->nama_menu,
+            'harga' => $request->harga,
+            'id_category' => $request->kategori,
+            'gambar' => $filename,
+            'deskripsi' => $request->deskripsi,
+        ];
+    
         if (Menu::create($object)){
             return redirect('database/menu');
         };
@@ -99,7 +105,8 @@ class MenuController extends Controller
     public function edit($id)
     {
         $data = [
-            'menu' => Menu::find($id)
+            'menu' => Menu::find($id),
+            'kategori' => DB::table('category')->get()
         ];
 
         return view('database.menu.edit', $data);
@@ -117,16 +124,14 @@ class MenuController extends Controller
     	$object = [
             'nama_menu' => $request->nama_menu,
             'harga' => $request->harga,
-            'id_category' => $request->id_category,
-            //'gambar' => $filename
+            'id_category' => $request->kategori,            
             'deskripsi' => $request->deskripsi,
-            ];
+        ];
 
         Validator::make($object, [
             'nama_menu' => 'required',
             'harga' => 'required',
-            'id_category' => 'required',
-            //'gambar' => 'required'           
+            'id_category' => 'required',            
             'deskripsi' => 'required',
         ]);
 
@@ -147,3 +152,4 @@ class MenuController extends Controller
             return redirect('database/menu');
         }
     }
+}

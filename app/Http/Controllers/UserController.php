@@ -86,10 +86,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $data = [
-            'user' => User::find($id)
+            'menu' => Menu::find($id)
         ];
 
-        return view('database.user.edit', $data);
+        return view('database.menu.edit', $data);
     }
 
     /**

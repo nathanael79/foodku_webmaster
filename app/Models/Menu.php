@@ -20,7 +20,7 @@ class Menu extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'nama_menu', 'harga', 'gambar','deskripsi',
+        'nama_menu', 'id_category', 'harga', 'gambar','deskripsi',
     ];
 
     /**
