@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2018 at 07:53 PM
+-- Generation Time: Jun 23, 2018 at 12:03 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -61,8 +61,7 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `id_category`, `nama_menu`, `harga`, `gambar`, `deskripsi`) VALUES
-(9, 2, 'Menu baru', 12000, 'menu-baru-0886002.png', 'ini adalah menu baru'),
-(10, 1, 'roti bakar', 24000, 'roti-bakar-0827103.png', 'ini adalah controh manu baru');
+(1, 1, 'Nasi Goreng', 10000, 'nasi-goreng-2224804.png', 'Makanan khas indonesia');
 
 -- --------------------------------------------------------
 
@@ -107,7 +106,10 @@ CREATE TABLE `ordermenu` (
 --
 
 INSERT INTO `ordermenu` (`id`, `id_table`, `tanggal`, `pelanggan`, `total`, `bayar`, `kembalian`, `is_finished`, `is_fetched`) VALUES
-(9, 3, '2018-06-08 17:30:29', 'Drake', 0, 0, 0, 0, 1);
+(9, 3, '2018-06-21 15:39:27', 'Drake', 0, 0, 0, 1, 1),
+(10, 3, '2018-06-22 04:58:26', 'Drake', 0, 0, 0, 0, 1),
+(11, 3, '2018-06-23 09:57:59', 'Drake', 0, 0, 0, 1, 0),
+(12, 3, '2018-06-22 17:00:00', 'Drake', 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -130,7 +132,9 @@ CREATE TABLE `ordermenu_details` (
 INSERT INTO `ordermenu_details` (`id`, `id_order`, `id_menu`, `kuantitas`, `harga`) VALUES
 (7, 8, 10, 1, 12000),
 (8, 9, 10, 1, 12000),
-(9, 9, 9, 2, 12000);
+(9, 9, 9, 4, 12000),
+(10, 1, 1, 4, 10000),
+(11, 12, 1, 2, 10000);
 
 -- --------------------------------------------------------
 
@@ -216,16 +220,17 @@ CREATE TABLE `users` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `user_role` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(5, 'Andika Ahmad', 'aspendaka@gmail.com', 'f9c22e5c8b56ff08487e9a8e727df2a752438222', NULL, NULL),
-(8, 'Imanuel Ronaldo', 'imanuelronaldo@gmail.com', 'b921dabed88b8cf96ea5e6c6f2e047f02f724997', NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`, `user_role`) VALUES
+(5, 'Andika Ahmad', 'aspendaka@gmail.com', 'f9c22e5c8b56ff08487e9a8e727df2a752438222', NULL, NULL, 1),
+(8, 'Imanuel Ronaldo', 'imanuelronaldo@gmail.com', 'b921dabed88b8cf96ea5e6c6f2e047f02f724997', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -313,7 +318,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -325,13 +330,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `ordermenu`
 --
 ALTER TABLE `ordermenu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `ordermenu_details`
 --
 ALTER TABLE `ordermenu_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tableorder`

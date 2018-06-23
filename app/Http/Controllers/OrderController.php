@@ -39,7 +39,11 @@ class OrderController extends Controller
 
     public function fetch_data()
     {
-        
+        $data = [
+            'orders' => DB::table('ordermenu')->where('is_finished', 0)->get()
+        ];
+
+        return view('database.order.list-order', $data);
     }
 
     /**

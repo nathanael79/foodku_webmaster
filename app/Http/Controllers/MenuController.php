@@ -14,7 +14,11 @@ class MenuController extends Controller
 {
    	public function index()
     {    	
-        return view('database.menu.menu');
+        if ( session('activeUser')->user_role == 1 ){
+            return view('database.menu.menu');
+        } else {
+            return redirect('/home');
+        }
     }
 
     public function get_datatable()

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use DataTables;
 use Validator;
+use Session;
 
 class UserController extends Controller
 {
@@ -14,9 +15,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
-        return view('database.user.user');
+        if ( session('activeUser')->user_role == 1 ){
+            return view('database.user.user');
+        } else {
+            return redirect('/home');
+        }
     }
 
     public function get_datatable()
